@@ -65,7 +65,14 @@ public class Board {
         return history.get(history.size() - 1);
     }
 
+    public Move removeLastMove() {
+        if (history.isEmpty())
+            return null;
+        return history.remove(history.size() - 1);
+    }
+
     public List<Move> getHistory() {
         return history;
     }
+
 }

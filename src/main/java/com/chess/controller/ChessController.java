@@ -6,7 +6,6 @@ import com.chess.service.ChessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/chess")
 public class ChessController {
@@ -21,12 +20,20 @@ public class ChessController {
 
     @PostMapping("/move")
     public GameState makeMove(@RequestBody MoveRequest move) {
-        return chessService.movePiece(move.getStartX(), move.getStartY(), move.getEndX(), move.getEndY());
+        System.out.println("Move Request: " + move.getStartX() + "," + move.getStartY() + " -> " + move.getEndX() + ","
+                + move.getEndY() + " Prom: " + move.getPromotionPiece());
+        return chessService.movePiece(move.getStartX(), move.getStartY(), move.getEndX(), move.getEndY(),
+                move.getPromotionPiece());
     }
 
     @PostMapping("/reset")
     public GameState resetGame() {
         chessService.resetBoard();
         return chessService.getGameState();
+    }
+
+    @PostMapping("/undo")
+    public GameState undoLastMove() {
+        return chessService.undoLastMove();
     }
 }

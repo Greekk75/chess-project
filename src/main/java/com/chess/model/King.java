@@ -21,61 +21,49 @@ public class King extends Piece {
         }
 
         // 3. Castling Logic
-        if (!this.hasMoved() && y == 0 && x == 2) {
-            // Identify Rook direction
-            int direction = end.getX() - start.getX(); // +2 for Kingside (usually), -2 unlikely but depends on board
+        if (!this.hasMoved() && x == 0 && y == 2) {
+            // Identify Rook direction (Target Y - Start Y)
+            int direction = end.getY() - start.getY(); // +2 for Kingside (usually), -2 unlikely but depends on board
                                                        // setup
-            // Standard board: Kings are at col 4.
-            // Queenside Rook at 0, Kingside Rook at 7.
-            // Target X for Castling:
-
-            // Check path is clear
-            // We need to check if the squares between start and rook are empty.
-            // Not strictly checking the Rook here, leaving strict validation to
-            // ChessService or further check?
-            // Actually, verify path here.
 
             int step = direction > 0 ? 1 : -1;
             // Check the 1st square over
-            if (board.getBox(start.getX() + step, start.getY()).getPiece() != null)
+            if (board.getBox(start.getX(), start.getY() + step).getPiece() != null)
                 return false;
-            // Check the 2nd square over (destination) - already checked "teammate" above
-            // but end piece must be null for castling usually?
-            // Actually in Castling, the king moves to an empty square.
+            // Check the 2nd square over (destination)
             if (end.getPiece() != null)
                 return false;
 
             // Check for Rook existence
-            // If moving right (+2), rook should be at 7. If moving left (-2), rook should
-            // be at 0.
-            int rookX = direction > 0 ? 7 : 0;
-            Spot rookSpot = board.getBox(rookX, start.getY());
+            // If moving right (+), rook should be at col 7. If moving left (-), rook should
+            // be at col 0.
+            int rookY = direction > 0 ? 7 : 0;
+            Spot rookSpot = board.getBox(start.getX(), rookY);
             Piece rook = rookSpot.getPiece();
 
             if (rook instanceof Rook && !rook.hasMoved() && rook.isWhite() == this.isWhite()) {
-                // Check path for Queenside (3 squares: 1, 2, 3) if moving left
+                // Check path for Queenside (3 squares)
                 if (direction < 0) {
-                    // Check x=1, x=2, x=3. King is at 4. Moving to 2.
-                    // Checked x=3 (start-1). Checking x=1?
-                    // Standard: King e1(4,0). O-O-O (Queenside) -> King c1(2,0). Rook a1(0,0) ->
-                    // d1(3,0).
-                    // Path b1(1,0), c1(2,0), d1(3,0) must be empty?
-                    // Actually King moves 2 squares to 2. Rook moves to 3.
-                    // The squares King passes through (3) and lands on (2) must be empty.
-                    // Also b1 (1) must be empty for Rook to move? Yes.
-
-                    if (board.getBox(1, start.getY()).getPiece() != null)
+                    // Queenside: King at 4. Rook at 0.
+                    // Squares between: 1, 2, 3.
+                    // King moves to 2.
+                    // Checked start-1 (3) above? "start.getY() + step" -> 4-1 = 3.
+                    // Need to check 1 and 2 (destination is 2).
+                    // Destination is checked above.
+                    // Need to check col 1.
+                    if (board.getBox(start.getX(), 1).getPiece() != null)
                         return false;
-                    if (board.getBox(2, start.getY()).getPiece() != null)
+                    if (board.getBox(start.getX(), 2).getPiece() != null)
                         return false; // Destination
-                    if (board.getBox(3, start.getY()).getPiece() != null)
-                        return false;
+                    if (board.getBox(start.getX(), 3).getPiece() != null)
+                        return false; // Passed through
                 } else {
-                    // King-side
-                    if (board.getBox(5, start.getY()).getPiece() != null)
-                        return false;
-                    if (board.getBox(6, start.getY()).getPiece() != null)
-                        return false; // Destination
+                    // King-side (Right)
+                    // King at 4. Rook at 7.
+                    // Squares: 5, 6.
+                    // King moves to 6.
+                    // Checked 5 above (start+step).
+                    // Checked 6 above (destination).
                 }
                 return true;
             }

@@ -13,6 +13,8 @@
     <groupId>com.chess</groupId>
     <artifactId>chess-project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <name>Chess Project</name>
+    <description>Chess Game with Spring Boot</description>
 
     <properties>
         <java.version>17</java.version>
@@ -23,6 +25,26 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-<!-- Removed unused JPA and MySQL dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

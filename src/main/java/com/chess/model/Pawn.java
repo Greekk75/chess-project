@@ -29,16 +29,30 @@ public class Pawn extends Piece {
         // 4. En Passant
         if (Math.abs(y) == 1 && x == direction && end.getPiece() == null) {
             Move lastMove = board.getLastMove();
+            System.out.println("EP Check: Diagonal move to empty square detected.");
             if (lastMove != null) {
                 Piece lastMovedPiece = lastMove.getPieceMoved();
+                System.out.println("Last Move: " + lastMovedPiece.getType() + " from " + lastMove.getStart().getX()
+                        + " to " + lastMove.getEnd().getX());
+
                 // Check if last moved piece is a pawn and moved 2 squares
                 if (lastMovedPiece instanceof Pawn
                         && Math.abs(lastMove.getStart().getX() - lastMove.getEnd().getX()) == 2) {
+
+                    System.out.println("Last move was double pawn push.");
                     // Check if it is adjacent to start and we are moving to its file
                     if (lastMove.getEnd().getX() == start.getX() && lastMove.getEnd().getY() == end.getY()) {
+                        System.out.println("EP Validated!");
                         return true;
+                    } else {
+                        System.out.println("EP Failed: Not adjacent or wrong file. Ours: " + start.getX() + ","
+                                + end.getY() + " Theirs: " + lastMove.getEnd().getX() + "," + lastMove.getEnd().getY());
                     }
+                } else {
+                    System.out.println("EP Failed: Last move not double pawn push.");
                 }
+            } else {
+                System.out.println("EP Failed: No last move.");
             }
         }
 
