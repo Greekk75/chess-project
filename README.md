@@ -106,3 +106,4 @@ chess/
 - **Multiplayer**: Websockets for real-time PvP.
 - **AI Opponent**: Minimize algorithm integration.
 - **Move History**: Visual log of moves (PGN format).
+- **immortal mode (unique)**: in which any pawn can immortal if any opponent tries to kill it then it will be adjusted like in one box both pieces will be adjusted.
