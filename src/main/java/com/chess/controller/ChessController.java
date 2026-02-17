@@ -36,4 +36,25 @@ public class ChessController {
     public GameState undoLastMove() {
         return chessService.undoLastMove();
     }
+
+    @Autowired
+    private com.chess.service.ChessAI chessAI;
+
+    @PostMapping("/ai-move")
+    @CrossOrigin(origins = "http://localhost:5173")
+    public com.chess.model.Move getAiMove(@RequestBody com.chess.dto.AiMoveRequest request) {
+        try {
+            if (request.getGameState() == null) {
+                return null;
+            }
+
+            com.chess.model.Board board = new com.chess.model.Board();
+            board.setBoxes(request.getGameState().getBoard()); // Use the deserialized array directly
+
+            return chessAI.getBestMove(board, request.getDifficulty(), request.getGameState().isWhiteTurn());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }

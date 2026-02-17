@@ -5,6 +5,10 @@ public class Rook extends Piece {
         super(white);
     }
 
+    public Rook() {
+        super();
+    }
+
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
         // 1. Must move in a straight line

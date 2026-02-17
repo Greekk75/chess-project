@@ -12,6 +12,9 @@ public class GameState {
     private boolean inCheck;
     private boolean checkmate;
 
+    public GameState() {
+    }
+
     public GameState(Spot[][] board, boolean isWhiteTurn, String message, boolean success) {
         this(board, isWhiteTurn, message, success, new java.util.ArrayList<>(), false, false);
     }

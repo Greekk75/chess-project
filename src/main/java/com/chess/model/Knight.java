@@ -5,6 +5,10 @@ public class Knight extends Piece {
         super(white); // Calls the Piece constructor
     }
 
+    public Knight() {
+        super(); // Calls the Piece constructor
+    }
+
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
         // Rule 1: Cannot capture your own piece

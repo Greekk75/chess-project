@@ -5,6 +5,10 @@ public class Bishop extends Piece {
         super(white);
     }
 
+    public Bishop() {
+        super();
+    }
+
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
         int xDist = Math.abs(start.getX() - end.getX());

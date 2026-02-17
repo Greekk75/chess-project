@@ -5,6 +5,10 @@ public class King extends Piece {
         super(white); //
     }
 
+    public King() {
+        super();
+    }
+
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
         // 1. Check if destination has a teammate

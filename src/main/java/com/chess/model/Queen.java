@@ -1,7 +1,13 @@
 package com.chess.model;
 
 public class Queen extends Piece {
-    public Queen(boolean white) { super(white); }
+    public Queen(boolean white) {
+        super(white);
+    }
+
+    public Queen() {
+        super();
+    }
 
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
@@ -12,6 +18,5 @@ public class Queen extends Piece {
         return tempRook.canMove(board, start, end) || tempBishop.canMove(board, start, end);
     }
 }
-
 
 //

@@ -1,11 +1,14 @@
 package com.chess.model;
 
 public class Move {
-    private final Spot start;
-    private final Spot end;
-    private final Piece pieceMoved;
-    private final Piece pieceKilled;
-    private final boolean isFirstMove; // NEW: Track if piece hadn't moved before
+    private Spot start;
+    private Spot end;
+    private Piece pieceMoved;
+    private Piece pieceKilled;
+    private boolean isFirstMove; // NEW: Track if piece hadn't moved before
+
+    public Move() {
+    }
 
     // Constructor for backward compatibility (default to false)
     public Move(Spot start, Spot end, Piece pieceMoved, Piece pieceKilled) {
@@ -25,19 +28,39 @@ public class Move {
         return start;
     }
 
+    public void setStart(Spot start) {
+        this.start = start;
+    }
+
     public Spot getEnd() {
         return end;
+    }
+
+    public void setEnd(Spot end) {
+        this.end = end;
     }
 
     public Piece getPieceMoved() {
         return pieceMoved;
     }
 
+    public void setPieceMoved(Piece pieceMoved) {
+        this.pieceMoved = pieceMoved;
+    }
+
     public Piece getPieceKilled() {
         return pieceKilled;
     }
 
+    public void setPieceKilled(Piece pieceKilled) {
+        this.pieceKilled = pieceKilled;
+    }
+
     public boolean isFirstMove() {
         return isFirstMove;
+    }
+
+    public void setFirstMove(boolean firstMove) {
+        isFirstMove = firstMove;
     }
 }

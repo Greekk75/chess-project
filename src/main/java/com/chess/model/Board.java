@@ -55,6 +55,10 @@ public class Board {
         return boxes;
     }
 
+    public void setBoxes(Spot[][] boxes) {
+        this.boxes = boxes;
+    }
+
     public void addMove(Move move) {
         history.add(move);
     }
